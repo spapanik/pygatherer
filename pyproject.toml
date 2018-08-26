@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "pygatherer"
+version = "0.0.1"
+description = "An API for the gatherer"
+authors = ["Steph Papanik <spapanik21@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "3.6"
+
+[tool.poetry.dev-dependencies]
