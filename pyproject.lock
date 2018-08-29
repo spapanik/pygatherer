@@ -119,9 +119,9 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
 version = "1.23"
 
 [metadata]
-content-hash = "79fa081fad29fa1e936cdd1836c03ee44fe43d50fe828e2da4bb47b127756bf7"
+content-hash = "e3bedf91ccd03ea84717cc7778da9862332ac0e9e6f1b6a9c3bd7e56f2f41cde"
 platform = "*"
-python-versions = "3.6"
+python-versions = "^3.6"
 
 [metadata.hashes]
 appdirs = ["9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92", "d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"]
