@@ -57,7 +57,7 @@ def parse_cost(cost):
 
 
 def parse_rules(rules):
-    return [rule.text for rule in rules.select('div.cardtextbox')]
+    return [rule.text for rule in rules.select("div.cardtextbox")]
 
 
 def parse_pt(pt):
@@ -78,9 +78,7 @@ def parse_left_col(left_col):
 
     variations = [
         variation
-        for variation in left_col.select_one(
-            "div.variations"
-        ).select("a")
+        for variation in left_col.select_one("div.variations").select("a")
         if variation["id"] == multiverse_id
     ]
     if variations:
