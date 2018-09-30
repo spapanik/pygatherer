@@ -15,6 +15,7 @@ setup(
     description="An API for the gatherer",
     packages=find_packages("src"),
     package_dir={"": "src"},
+    url=PKG_URL,
     install_requires=[
         "requests>=2.0,<3.0" "beautifulsoup4>=4.0,<5.0" "lxml>=4.0,<5.0"
     ],
