@@ -4,6 +4,7 @@ black:
 	black .
 
 pyproject.lock: pyproject.toml
+	poetry update
 	poetry install ${DEV}
 
 requirements.txt: pyproject.lock
