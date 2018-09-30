@@ -4,8 +4,8 @@ black:
 	black .
 
 pyproject.lock: pyproject.toml
-	pip install -U poetry
 	poetry install ${DEV}
 
 requirements.txt: pyproject.lock
+	pip install -U poetry
 	poetry show | awk '{print $$1"=="$$2}' > $@
