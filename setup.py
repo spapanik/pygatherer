@@ -7,6 +7,12 @@ __license__ = "MIT"
 PKG_NAME = "pygatherer"
 PKG_URL = f"https://github.com/{__author__}/{PKG_NAME}"
 
+
+def contents(filename):
+    with open(filename) as f:
+        return f.read()
+
+
 setup(
     name=PKG_NAME,
     packages=find_packages("src"),
@@ -26,6 +32,7 @@ setup(
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
         "Programming Language :: Python :: 3 :: Only",
     ],
 )

@@ -4,9 +4,9 @@ py36 = true
 
 [tool.poetry]
 name = "pygatherer"
-version = "0.0.1"
+version = "0.0.3"
 description = "An API for the gatherer"
-authors = ["Steph Papanik <spapanik21@gmail.com>"]
+authors = ["spapanik <spapanik21@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]

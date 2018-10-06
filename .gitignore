@@ -2,6 +2,6 @@
 __pycache__/
 requirements.txt
 
-# python packaging
-/build/
-/dist/
+# dist outpout
+dist/
+build/
