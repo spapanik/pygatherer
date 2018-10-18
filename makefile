@@ -3,10 +3,10 @@
 black:
 	black .
 
-pyproject.lock: pyproject.toml
+poetry.lock: pyproject.toml
 	poetry lock
 
-requirements.txt: pyproject.lock
+requirements.txt: poetry.lock
 	pip install -U poetry
 	poetry install ${DEV}
 	poetry show | awk '{print $$1"=="$$2}' > $@
