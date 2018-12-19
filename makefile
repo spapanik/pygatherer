@@ -1,12 +1,14 @@
-.PHONY: black
-
-black:
+.PHONY: fmt
+fmt:
 	black .
 
 poetry.lock: pyproject.toml
 	poetry lock
 
 requirements.txt: poetry.lock
-	pip install -U poetry
-	poetry install ${DEV}
+	poetry install $(POETRY_EXTRA)
 	poetry show | awk '{print $$1"=="$$2}' > $@
+
+.PHONY: tests
+tests:
+	py.test $(PYTEST_ARGS) $(TEST_FILE)

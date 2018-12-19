@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 __author__ = "spapanik"
-__version__ = '0.1.0'
+__version__ = "0.1.0"
 __license__ = "MIT"
 
 PKG_NAME = "pygatherer"
@@ -26,7 +26,9 @@ setup(
     download_url=f"{PKG_URL}/tarball/{__version__}",
     python_requires=">=3.6",
     install_requires=[
-        "requests>=2.0,<3.0" "beautifulsoup4>=4.0,<5.0" "lxml>=4.0,<5.0"
+        "requests>=2.0,<3.0",
+        "beautifulsoup4>=4.0,<5.0",
+        "lxml>=4.0,<5.0",
     ],
     keywords=["magic", "MtG"],
     classifiers=[

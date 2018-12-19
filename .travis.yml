@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.6"
+  - "3.7"
+
+# minimal installation
+install:
+  - "pip install -e ."
+  - "make requirements.txt"
+
+# run tests
+script:
+- "make tests"
