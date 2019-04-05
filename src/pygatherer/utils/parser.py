@@ -146,10 +146,7 @@ def parse_gatherer_content(content):
         if left_col is None:
             left_col = face.select_one("td.plane")
 
-        card_info = {
-            **parse_left_col(left_col),
-            **parse_right_col(right_col),
-        }
+        card_info = {**parse_left_col(left_col), **parse_right_col(right_col)}
         if card_info["multiverse_id"] == multiverse_id:
             return card_info
 
