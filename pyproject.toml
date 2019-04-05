@@ -12,17 +12,17 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.6"
 
-requests = "^2.0"
-beautifulsoup4 = "^4.0"
-lxml = "^4.0"
+requests = "^2.21"
+beautifulsoup4 = "^4.7"
+lxml = "^4.3"
 
 [tool.poetry.dev-dependencies]
 # formatting
 black = {version = "*", allows-prereleases = true}
 
 # debugging
-ipython = "^7.2"
-ipdb = "^0.11.0"
+ipython = "^7.4"
+ipdb = "^0.12"
 
 # testing
-pytest = "^4.0"
+pytest = "^4.4"
