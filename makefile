@@ -1,3 +1,6 @@
+PYTEST_ARGS = -vv
+PYTEST_PATH = tests
+
 .PHONY: format
 format:
 	black .
@@ -11,4 +14,4 @@ requirements.txt: poetry.lock
 
 .PHONY: tests
 tests:
-	py.test $(PYTEST_ARGS) $(TEST_FILE)
+	py.test $(PYTEST_ARGS) $(PYTEST_PATH)
