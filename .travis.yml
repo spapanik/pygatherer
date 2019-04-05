@@ -1,13 +1,11 @@
 language: python
-
 python:
   - "3.6"
-
-# minimal installation
+# command to install dependencies
 install:
+  - "pip install poetry"
   - "pip install -e ."
-  - "pip install pytest"
-
-# run tests
+  - "make requirements.txt"
+# command to run tests
 script:
 - "make tests"
