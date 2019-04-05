@@ -1,5 +1,5 @@
-.PHONY: fmt
-fmt:
+.PHONY: format
+format:
 	black .
 
 poetry.lock: pyproject.toml
