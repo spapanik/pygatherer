@@ -1,28 +1,53 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
 [tool.black]
 line-length = 79
 target-version = ["py36", "py37", "py38"]
+
+[tool.isort]
+line_length = 79
+multi_line_output = 3
+include_trailing_comma = true
+known_tests = "tests"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER", "TESTS"]
 
 [tool.poetry]
 name = "pygatherer"
 version = "0.3.0"
 description = "An API for the gatherer"
 authors = ["spapanik <spapanik21@gmail.com>"]
+
 license = "MIT"
+readme = "README.md"
+include = ["CHANGELOG.md"]
+
+repository = "https://github.com/spapanik/pygatherer"
+
+keywords=["magic", "MtG"]
+classifiers=[
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
 
-requests = "^2.21"
-beautifulsoup4 = "^4.7"
-lxml = "^4.3"
+requests = "^2.22"
+beautifulsoup4 = "^4.8"
+lxml = "^4.4"
 
 [tool.poetry.dev-dependencies]
-# formatting
 black = {version = "*", allows-prereleases = true}
+isort = "^4.3"
 
-# debugging
-ipython = "^7.4"
+pytest = "^5.1"
+pytest-cov = "^2.8"
+coveralls = "^1.8"
+
+ipython = "^7.8"
 ipdb = "^0.12"
-
-# testing
-pytest = "^4.4"
