@@ -50,9 +50,7 @@ def parse_types(types):
 
 
 def parse_cost(cost):
-    cost_images = [
-        parse_cost_image(cost_img) for cost_img in cost.select("img")
-    ]
+    cost_images = [parse_cost_image(cost_img) for cost_img in cost.select("img")]
     return cost_images
 
 
