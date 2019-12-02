@@ -3,7 +3,7 @@ import urllib.parse
 import requests
 from bs4 import BeautifulSoup
 
-from .constants import CARD_URL, SUPERTYPES
+from pygatherer.utils.constants import CARD_URL, SUPERTYPES
 
 
 def parse_cost_image(cost_img):
