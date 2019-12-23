@@ -16,7 +16,9 @@ sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "TESTS"]
 name = "pygatherer"
 version = "0.3.0"
 description = "An API for the gatherer"
-authors = ["spapanik <spapanik21@gmail.com>"]
+authors = [
+    "Stephanos Kuma <spapanik21@gmail.com>",
+]
 
 license = "MIT"
 readme = "README.md"
@@ -27,7 +29,6 @@ repository = "https://github.com/spapanik/pygatherer"
 keywords=["magic", "MtG"]
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
-    "Programming Language :: Python :: 3 :: Only",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
