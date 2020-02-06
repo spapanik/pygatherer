@@ -113,8 +113,6 @@ def parse_right_col(right_col):
 
     if "P/T:" in rows:
         power, toughness = parse_pt(rows["P/T:"].text.strip())
-        power = power
-        toughness = toughness
 
     return {
         "name": rows["Card Name:"].text.strip(),
