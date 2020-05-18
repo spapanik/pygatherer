@@ -149,5 +149,7 @@ def parse_gatherer_content(content):
 def get_card_by_id(multiverse_id):
     gatherer_url = f"{CARD_URL}Details.aspx?multiverseid={multiverse_id}"
 
-    response = requests.get(gatherer_url)
+    response = requests.get(gatherer_url, allow_redirects=False)
+    if response.status_code >= 300:
+        raise ValueError(f"No card with multiverse_id {multiverse_id} exists")
     return parse_gatherer_content(response.content)
