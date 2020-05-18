@@ -29,9 +29,7 @@ repository = "https://github.com/spapanik/pygatherer"
 keywords=["magic", "MtG"]
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3 :: Only",
 ]
 
 [tool.poetry.dependencies]
