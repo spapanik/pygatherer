@@ -9,18 +9,34 @@ The format is based on [Keep a Changelog][clog], and this project adheres to [Se
 - Added a changelog
 
 ## [0.4.0] - 2020-05-18
+### Changed
+- Updated requirements
 
 ## [0.3.0] - 2018-12-19
+### Removed
+- Removed the following classes, as they don't offer extra functionality:
+  - Card
+  - CardParser
 
 ## [0.2.0] - 2018-12-19
+### Changed
+- Changed the package name to pygatherer
 
 ## [0.1.0] - 2018-10-06
+### Added
+- Added more trove classifiers to the package
 
 ## [0.0.3] - 2018-10-06
+### Added
+- Added more information to the package
 
 ## [0.0.2] - 2018-09-02
+### Change
+- Made the requirements less strict
 
 ## [0.0.1] - 2018-08-27
+### Added
+- Added a parser for a single multiverse id
 
 
 [unreleased]: https://github.com/spapanik/pygatherer/compare/0.4.0...master
