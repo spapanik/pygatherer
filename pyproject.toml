@@ -27,7 +27,7 @@ include = ["CHANGELOG.md"]
 repository = "https://github.com/spapanik/pygatherer"
 
 keywords=["magic", "MtG"]
-classifiers=[
+classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Operating System :: OS Independent",
 ]
