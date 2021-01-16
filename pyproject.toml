@@ -44,13 +44,16 @@ lxml = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 black = {version = "*", allow-prereleases = true}
-isort = "^5.6.0"
+isort = "^5.7.0"
 
-pytest = "^6.1.0"
-pytest-cov = "^2.10.0"
-coveralls = "^2.2.0"
+pytest = "^6.2.0"
+pytest-cov = {version = "^2.10.0", extras = ["toml"]}
+coveralls = "^3.0.0"
 
-ipython = "^7.16.0"
+ipython = [
+    {version = "^7.16.0", python = "~3.6.0"},
+    {version = "^7.19.0", python = "^3.7.0"},
+]
 ipdb = "^0.13.0"
 
 flake8 = "^3.8.0"
@@ -60,4 +63,4 @@ flake8-comprehensions = "^3.3.0"
 flake8-eradicate = "^1.0.0"
 flake8-executable = "^2.1.0"
 flake8-mutable = "^1.2.0"
-flake8-tidy-imports = "^4.1.0"
+flake8-tidy-imports = "^4.2.0"
