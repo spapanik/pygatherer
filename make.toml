@@ -23,7 +23,6 @@ commands = [
 ]
 
 [lint]
-echo = true
 phony = true
 requires = ["install"]
 commands = [
