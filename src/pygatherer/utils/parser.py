@@ -1,7 +1,7 @@
 import urllib.parse
 
 import requests
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup
 
 from pygatherer.utils.constants import CARD_URL, SUPERTYPES
 
