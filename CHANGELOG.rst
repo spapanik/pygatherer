@@ -14,6 +14,10 @@ Added
 * Added python310 support
 * Added a changelog
 
+Changed
+^^^^^^^
+* Change gatherer url scheme to https
+
 Removed
 ^^^^^^^
 * Dropped python36 support
@@ -23,7 +27,7 @@ Removed
 
 Changed
 ^^^^^^^
-- Updated requirements
+* Updated requirements
 
 `0.3.0`_ - 2018-12-19
 ---------------------

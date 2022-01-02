@@ -1,4 +1,4 @@
-BASE_URL = "http://gatherer.wizards.com/"
+BASE_URL = "https://gatherer.wizards.com/"
 CARD_URL = BASE_URL + "Pages/Card/"
 
 
