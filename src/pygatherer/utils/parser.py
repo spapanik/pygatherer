@@ -1,12 +1,14 @@
-import urllib.parse
+from typing import Any, Dict, List, Tuple
 
 import requests
 from bs4 import BeautifulSoup
+from bs4.element import Tag
+from pathurl import URL, Query
 
-from pygatherer.utils.constants import CARD_URL, SUPERTYPES
+from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 
 
-def parse_cost_image(cost_img):
+def parse_cost_image(cost_img: Tag) -> Dict[str, Any]:
     alt = cost_img["alt"]
     try:
         cost = int(alt)
@@ -28,8 +30,8 @@ def parse_cost_image(cost_img):
     return {"type": "Colored", "colors": [alt]}
 
 
-def parse_types(types):
-    main_types, *subtypes = types.split("—")
+def parse_types(type_info: str) -> Tuple[List[str], List[str], List[str]]:
+    main_types, *subtypes = type_info.split("—")
     supertypes = []
     types = []
     for main_type in main_types.split():
@@ -40,36 +42,35 @@ def parse_types(types):
             types.append(main_type)
 
     if subtypes:
-        subtypes = subtypes[0]
+        subtype_info = subtypes[0]
         if "Plane" in types:
-            subtypes = [subtypes.strip()]
+            subtypes = [subtype_info.strip()]
         else:
-            subtypes = [subtype.strip() for subtype in subtypes.split()]
+            subtypes = [subtype.strip() for subtype in subtype_info.split()]
 
     return supertypes, types, subtypes
 
 
-def parse_cost(cost):
+def parse_cost(cost: Tag) -> List[Dict[str, Any]]:
     return [parse_cost_image(cost_img) for cost_img in cost.select("img")]
 
 
-def parse_rules(rules):
+def parse_rules(rules: Tag) -> List[str]:
     return [rule.text for rule in rules.select("div.cardtextbox")]
 
 
-def parse_pt(pt):
+def parse_pt(pt: str) -> Tuple[str, str]:
     power, toughness = pt.split("/")
     return power.strip(), toughness.strip()
 
 
-def get_id_from_image_url(image_url):
-    query = urllib.parse.urlparse(image_url).query
-    return urllib.parse.parse_qs(query)["multiverseid"][0]
+def get_id_from_image_url(image_url: URL) -> str:
+    return image_url.query.get("multiverseid")[0]
 
 
-def parse_left_col(left_col):
+def parse_left_col(left_col: Tag) -> Dict[str, Any]:
     img = left_col.img
-    image_url = urllib.parse.urljoin(CARD_URL, img["src"])
+    image_url = CARD_URL.join(img["src"])
     multiverse_id = get_id_from_image_url(image_url)
     variation = None
     variations = [
@@ -79,16 +80,16 @@ def parse_left_col(left_col):
     ]
 
     if variations:
-        variation: int(variations[0].text)
+        variation = int(variations[0].text)
 
     return {
-        "image_url": image_url,
+        "image_url": image_url.string,
         "multiverse_id": int(multiverse_id),
         "variation": variation,
     }
 
 
-def parse_right_col(right_col):
+def parse_right_col(right_col: Tag) -> Dict[str, Any]:
     rows = {
         row.select_one(".label").text.strip(): row.select_one(".value")
         for row in right_col.select("div.row")
@@ -129,10 +130,9 @@ def parse_right_col(right_col):
     }
 
 
-def parse_gatherer_content(content):
+def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Dict[str, Any]:
     soup = BeautifulSoup(content, "lxml")
-    url = soup.select_one("form#aspnetForm")["action"]
-    multiverse_id = int(get_id_from_image_url(url))
+    multiverse_id = int(get_id_from_image_url(gatherer_url))
     faces_table = soup.select_one("table.cardComponentTable")
     faces = faces_table.select("table.cardDetails")
     for face in faces:
@@ -145,11 +145,15 @@ def parse_gatherer_content(content):
         if card_info["multiverse_id"] == multiverse_id:
             return card_info
 
+    raise RuntimeError("No race is having the multiverse id.")
 
-def get_card_by_id(multiverse_id):
-    gatherer_url = f"{CARD_URL}Details.aspx?multiverseid={multiverse_id}"
 
-    response = requests.get(gatherer_url, allow_redirects=False)
+def get_card_by_id(multiverse_id: int) -> Dict[str, Any]:
+    gatherer_url = CARD_DETAILS_URL.replace(
+        query=Query(f"multiverseid={multiverse_id}")
+    )
+
+    response = requests.get(gatherer_url.string, allow_redirects=False)
     if response.status_code >= 300:
         raise ValueError(f"No card with multiverse_id {multiverse_id} exists")
-    return parse_gatherer_content(response.content)
+    return parse_gatherer_content(response.content, gatherer_url)
