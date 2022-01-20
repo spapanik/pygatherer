@@ -11,7 +11,7 @@ from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 
 @dataclass
 class Cost:
-    type: str
+    type: str  # noqa: A003
     value: Any = None
     colors: List[str] = None
 
