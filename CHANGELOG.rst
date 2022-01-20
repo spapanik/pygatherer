@@ -9,6 +9,9 @@ The format is based on `Keep a Changelog`_, and this project adheres to `Semanti
 `Unreleased`_
 -------------
 
+`0.6.0`_ - 2022-01-20
+---------------------
+
 Changed
 ^^^^^^^
 * Use dataclasses for Card and Cost
@@ -86,7 +89,8 @@ Added
 * Added a parser for a single multiverse id
 
 
-.. _`unreleased`: https://github.com/spapanik/pygatherer/compare/0.5.0...master
+.. _`unreleased`: https://github.com/spapanik/pygatherer/compare/0.6.0...master
+.. _`0.6.0`: https://github.com/spapanik/pygatherer/compare/0.5.0...v0.6.0
 .. _`0.5.0`: https://github.com/spapanik/pygatherer/compare/0.4.0...v0.5.0
 .. _`0.4.0`: https://github.com/spapanik/pygatherer/compare/0.3.0...v0.4.0
 .. _`0.3.0`: https://github.com/spapanik/pygatherer/compare/0.2.0...v0.3.0
