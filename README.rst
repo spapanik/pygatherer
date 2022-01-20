@@ -21,7 +21,7 @@ pygatherer: unofficial python API for the gatherer
   :alt: Code style
   :target: https://github.com/psf/black
 
-``pygatherer`` is an objected-oriented way of manipulating URLs.
+``pygatherer`` is an unofficial python API for the gatherer.
 
 In a nutshell
 -------------
