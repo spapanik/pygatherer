@@ -9,6 +9,10 @@ The format is based on `Keep a Changelog`_, and this project adheres to `Semanti
 `Unreleased`_
 -------------
 
+Changed
+^^^^^^^
+* Use dataclasses for Card and Cost
+
 Removed
 ^^^^^^^
 * Removed changelog from the published wheel

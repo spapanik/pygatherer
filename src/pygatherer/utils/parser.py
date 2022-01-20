@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
 
 import requests
@@ -8,26 +9,51 @@ from pathurl import URL, Query
 from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 
 
-def parse_cost_image(cost_img: Tag) -> Dict[str, Any]:
+@dataclass
+class Cost:
+    type: str
+    value: Any = None
+    colors: List[str] = None
+
+
+@dataclass
+class Card:
+    name: str
+    cost: List[Cost]
+    color_indicator: List[str]
+    subtypes: List[str]
+    types: List[str]
+    supertypes: List[str]
+    expansion: str
+    image_url: URL
+    power: str
+    loyalty: str
+    toughness: str
+    variation: str
+    rules: List[str]
+    multiverse_id: int
+
+
+def parse_cost_image(cost_img: Tag) -> Cost:
     alt = cost_img["alt"]
     try:
         cost = int(alt)
     except ValueError:
         pass
     else:
-        return {"type": "Colorless", "value": cost}
+        return Cost(type="Colorless", value=cost)
 
     if alt.startswith("Phyrexian"):
         _, color = alt.split()
-        return {"type": "Phyrexian", "colors": [color]}
+        return Cost(type="Phyrexian", colors=[color])
 
     if " or " in alt:
         first, second = alt.split(" or ")
         if first == "Two":
-            return {"type": "Monocolored Hybrid", "colors": [second]}
-        return {"type": "Hybrid", "colors": [first, second]}
+            return Cost(type="Monocolored Hybrid", colors=[second])
+        return Cost(type="Hybrid", colors=[first, second])
 
-    return {"type": "Colored", "colors": [alt]}
+    return Cost(type="Colored", colors=[alt])
 
 
 def parse_types(type_info: str) -> Tuple[List[str], List[str], List[str]]:
@@ -51,7 +77,7 @@ def parse_types(type_info: str) -> Tuple[List[str], List[str], List[str]]:
     return supertypes, types, subtypes
 
 
-def parse_cost(cost: Tag) -> List[Dict[str, Any]]:
+def parse_cost(cost: Tag) -> List[Cost]:
     return [parse_cost_image(cost_img) for cost_img in cost.select("img")]
 
 
@@ -130,7 +156,7 @@ def parse_right_col(right_col: Tag) -> Dict[str, Any]:
     }
 
 
-def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Dict[str, Any]:
+def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Card:
     soup = BeautifulSoup(content, "lxml")
     multiverse_id = int(get_id_from_image_url(gatherer_url))
     faces_table = soup.select_one("table.cardComponentTable")
@@ -143,12 +169,12 @@ def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Dict[str, Any]:
 
         card_info = {**parse_left_col(left_col), **parse_right_col(right_col)}
         if card_info["multiverse_id"] == multiverse_id:
-            return card_info
+            return Card(**card_info)
 
     raise RuntimeError("No race is having the multiverse id.")
 
 
-def get_card_by_id(multiverse_id: int) -> Dict[str, Any]:
+def get_card_by_id(multiverse_id: int) -> Card:
     gatherer_url = CARD_DETAILS_URL.replace(
         query=Query(f"multiverseid={multiverse_id}")
     )
