@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 import requests
 from bs4 import BeautifulSoup
@@ -13,24 +15,24 @@ from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 class Cost:
     type: str  # noqa: A003
     value: Any = None
-    colors: List[str] = None
+    colors: list[str] | None = None
 
 
 @dataclass
 class Card:
     name: str
-    cost: List[Cost]
-    color_indicator: List[str]
-    subtypes: List[str]
-    types: List[str]
-    supertypes: List[str]
+    cost: list[Cost]
+    color_indicator: list[str]
+    subtypes: list[str]
+    types: list[str]
+    supertypes: list[str]
     expansion: str
     image_url: URL
     power: str
     loyalty: str
     toughness: str
     variation: str
-    rules: List[str]
+    rules: list[str]
     multiverse_id: int
 
 
@@ -56,7 +58,7 @@ def parse_cost_image(cost_img: Tag) -> Cost:
     return Cost(type="Colored", colors=[alt])
 
 
-def parse_types(type_info: str) -> Tuple[List[str], List[str], List[str]]:
+def parse_types(type_info: str) -> tuple[list[str], list[str], list[str]]:
     main_types, *subtypes = type_info.split("—")
     supertypes = []
     types = []
@@ -77,15 +79,15 @@ def parse_types(type_info: str) -> Tuple[List[str], List[str], List[str]]:
     return supertypes, types, subtypes
 
 
-def parse_cost(cost: Tag) -> List[Cost]:
+def parse_cost(cost: Tag) -> list[Cost]:
     return [parse_cost_image(cost_img) for cost_img in cost.select("img")]
 
 
-def parse_rules(rules: Tag) -> List[str]:
+def parse_rules(rules: Tag) -> list[str]:
     return [rule.text for rule in rules.select("div.cardtextbox")]
 
 
-def parse_pt(pt: str) -> Tuple[str, str]:
+def parse_pt(pt: str) -> tuple[str, str]:
     power, toughness = pt.split("/")
     return power.strip(), toughness.strip()
 
@@ -94,7 +96,7 @@ def get_id_from_image_url(image_url: URL) -> str:
     return image_url.query.get("multiverseid")[0]
 
 
-def parse_left_col(left_col: Tag) -> Dict[str, Any]:
+def parse_left_col(left_col: Tag) -> dict[str, Any]:
     img = left_col.img
     image_url = CARD_URL.join(img["src"])
     multiverse_id = get_id_from_image_url(image_url)
@@ -115,7 +117,7 @@ def parse_left_col(left_col: Tag) -> Dict[str, Any]:
     }
 
 
-def parse_right_col(right_col: Tag) -> Dict[str, Any]:
+def parse_right_col(right_col: Tag) -> dict[str, Any]:
     rows = {
         row.select_one(".label").text.strip(): row.select_one(".value")
         for row in right_col.select("div.row")

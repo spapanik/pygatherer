@@ -5,9 +5,6 @@ pygatherer: unofficial python API for the gatherer
 .. image:: https://github.com/spapanik/pygatherer/actions/workflows/build.yml/badge.svg
   :alt: Build
   :target: https://github.com/spapanik/pygatherer/actions/workflows/build.yml
-.. image:: https://img.shields.io/lgtm/alerts/g/spapanik/pygatherer.svg
-  :alt: Total alerts
-  :target: https://lgtm.com/projects/g/spapanik/pygatherer/alerts/
 .. image:: https://img.shields.io/github/license/spapanik/pygatherer
   :alt: License
   :target: https://github.com/spapanik/pygatherer/blob/main/LICENSE.txt

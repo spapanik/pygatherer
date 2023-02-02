@@ -10,6 +10,6 @@ Usage
 
    Retrieve the card info by its multiverse id
 
-   :param Union[str, int] multiverse_id: The multiverse id of the card
+   :param str | int multiverse_id: The multiverse id of the card
    :return: the parsed gatherer content of the card
    :rtype: dict
