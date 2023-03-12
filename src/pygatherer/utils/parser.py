@@ -181,7 +181,9 @@ def get_card_by_id(multiverse_id: int) -> Card:
         query=Query(f"multiverseid={multiverse_id}")
     )
 
-    response = requests.get(gatherer_url.string, allow_redirects=False)
+    response = requests.get(
+        gatherer_url.string, allow_redirects=False, timeout=(60, 120)
+    )
     if response.status_code >= 300:
         raise ValueError(f"No card with multiverse_id {multiverse_id} exists")
     return parse_gatherer_content(response.content, gatherer_url)
