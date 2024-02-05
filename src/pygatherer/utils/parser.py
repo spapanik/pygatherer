@@ -13,7 +13,7 @@ from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 
 @dataclass
 class Cost:
-    type: str  # noqa: A003
+    type: str
     value: Any = None
     colors: list[str] | None = None
 
@@ -93,7 +93,10 @@ def parse_pt(pt: str) -> tuple[str, str]:
 
 
 def get_id_from_image_url(image_url: URL) -> str:
-    return image_url.query.get("multiverseid")[0]
+    if (id_list := image_url.query.get("multiverseid")) is None:
+        msg = f"Image url {image_url} does not contain multiverseid"
+        raise ValueError(msg)
+    return id_list[0]
 
 
 def parse_left_col(left_col: Tag) -> dict[str, Any]:
@@ -173,7 +176,8 @@ def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Card:
         if card_info["multiverse_id"] == multiverse_id:
             return Card(**card_info)
 
-    raise RuntimeError("No race is having the multiverse id.")
+    msg = "No race is having the multiverse id."
+    raise RuntimeError(msg)
 
 
 def get_card_by_id(multiverse_id: int) -> Card:
@@ -185,5 +189,6 @@ def get_card_by_id(multiverse_id: int) -> Card:
         gatherer_url.string, allow_redirects=False, timeout=(60, 120)
     )
     if response.status_code >= 300:
-        raise ValueError(f"No card with multiverse_id {multiverse_id} exists")
+        msg = f"No card with multiverse_id {multiverse_id} exists"
+        raise ValueError(msg)
     return parse_gatherer_content(response.content, gatherer_url)
