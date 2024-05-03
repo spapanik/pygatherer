@@ -155,7 +155,7 @@ python = "^3.8"
 # dependencies
 beautifulsoup4 = "^4.0"
 lxml = "^5.0"
-pathurl = "^0.6"
+pathurl = "^0.7"
 requests = "^2.0"
 
 [tool.poetry.group.dev.dependencies]
