@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import requests
 from bs4 import BeautifulSoup
-from bs4.element import Tag
 from pathurl import URL, Query
 
 from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
+
+if TYPE_CHECKING:
+    from bs4.element import Tag
 
 
 @dataclass
