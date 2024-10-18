@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from http import HTTPStatus
 from typing import TYPE_CHECKING, Any
 
 import requests
@@ -190,7 +191,7 @@ def get_card_by_id(multiverse_id: int) -> Card:
     response = requests.get(
         gatherer_url.string, allow_redirects=False, timeout=(60, 120)
     )
-    if response.status_code >= 300:
+    if response.status_code >= HTTPStatus.MULTIPLE_CHOICES:
         msg = f"No card with multiverse_id {multiverse_id} exists"
         raise ValueError(msg)
     return parse_gatherer_content(response.content, gatherer_url)
