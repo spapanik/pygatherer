@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     from bs4.element import Tag
 
 
-@dataclass
+@dataclass(frozen=True)
 class Cost:
     type: str
-    value: Any = None
+    value: object = None
     colors: list[str] | None = None
 
 
-@dataclass
+@dataclass(frozen=True)
 class Card:
     name: str
     cost: list[Cost]
