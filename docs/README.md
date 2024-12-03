@@ -24,7 +24,7 @@
 [test_badge]: https://github.com/spapanik/pygatherer/actions/workflows/tests.yml/badge.svg
 [test_url]: https://github.com/spapanik/pygatherer/actions/workflows/tests.yml
 [licence_badge]: https://img.shields.io/pypi/l/pygatherer
-[licence_url]: https://github.com/spapanik/pygatherer/blob/main/docs/LICENSE.md
+[licence_url]: https://pygatherer.readthedocs.io/en/stableLICENSE/
 [pypi_badge]: https://img.shields.io/pypi/v/pygatherer
 [pypi_url]: https://pypi.org/project/pygatherer
 [pepy_badge]: https://pepy.tech/badge/pygatherer
@@ -36,4 +36,4 @@
 [ruff_badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v1.json
 [ruff_url]: https://github.com/charliermarsh/ruff
 [Documentation]: https://pygatherer.readthedocs.io/en/stable/
-[Changelog]: https://github.com/spapanik/pygatherer/blob/main/docs/CHANGELOG.md
+[Changelog]: https://pygatherer.readthedocs.io/en/stable/CHANGELOG/
