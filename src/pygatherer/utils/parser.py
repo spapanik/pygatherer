@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from http import HTTPStatus
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, TypedDict
 
 import requests
 from bs4 import BeautifulSoup
@@ -14,14 +14,34 @@ if TYPE_CHECKING:
     from bs4.element import Tag
 
 
-@dataclass
+class LeftColumnInfo(TypedDict):
+    image_url: str
+    multiverse_id: int
+    variation: int | None
+
+
+class RightColumnInfo(TypedDict):
+    name: int
+    expansion: int
+    supertypes: list[str]
+    types: list[str]
+    subtypes: list[str]
+    cost: list[Cost] | None
+    color_indicator: list[str] | None
+    loyalty: str | None
+    rules: list[str] | None
+    power: str | None
+    toughness: str | None
+
+
+@dataclass(frozen=True)
 class Cost:
     type: str
-    value: Any = None
+    value: object = None
     colors: list[str] | None = None
 
 
-@dataclass
+@dataclass(frozen=True)
 class Card:
     name: str
     cost: list[Cost]
@@ -102,7 +122,7 @@ def get_id_from_image_url(image_url: URL) -> str:
     return id_list[0]
 
 
-def parse_left_col(left_col: Tag) -> dict[str, Any]:
+def parse_left_col(left_col: Tag) -> LeftColumnInfo:
     img = left_col.img
     image_url = CARD_URL.join(img["src"])
     multiverse_id = get_id_from_image_url(image_url)
@@ -123,7 +143,7 @@ def parse_left_col(left_col: Tag) -> dict[str, Any]:
     }
 
 
-def parse_right_col(right_col: Tag) -> dict[str, Any]:
+def parse_right_col(right_col: Tag) -> RightColumnInfo:
     rows = {
         row.select_one(".label").text.strip(): row.select_one(".value")
         for row in right_col.select("div.row")
@@ -177,7 +197,7 @@ def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Card:
 
         card_info = {**parse_left_col(left_col), **parse_right_col(right_col)}
         if card_info["multiverse_id"] == multiverse_id:
-            return Card(**card_info)
+            return Card(**card_info)  # type: ignore[arg-type]
 
     msg = "No race is having the multiverse id."
     raise RuntimeError(msg)
