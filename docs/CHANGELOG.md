@@ -6,9 +6,20 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [Unreleased]
 
+### Added
+
+-   Added python 3.11 support
+-   Added python 3.12 support
+-   Added python 3.13 support
+
 ### Removed
 
--   Drop python 3.7 support
+-   Dropped python 3.7 support
+-   Dropped python 3.8 support
+
+### Fixed
+
+-   Fixed false warning message about doc type
 
 ## [0.6.0] - 2022-01-20
 
@@ -29,7 +40,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Changed
 
--   Change gatherer url scheme to https
+-   Changed gatherer url scheme to https
 
 ### Removed
 
