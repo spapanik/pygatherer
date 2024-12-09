@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from http import HTTPStatus
 from typing import TYPE_CHECKING, TypedDict
@@ -12,6 +13,9 @@ from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 
 if TYPE_CHECKING:
     from bs4.element import Tag
+
+
+FALSE_TAG = re.compile(r"^<\?xml.*?\?>")
 
 
 class LeftColumnInfo(TypedDict):
@@ -184,7 +188,7 @@ def parse_right_col(right_col: Tag) -> RightColumnInfo:
     }
 
 
-def parse_gatherer_content(content: bytes, gatherer_url: URL) -> Card:
+def parse_gatherer_content(content: str, gatherer_url: URL) -> Card:
     soup = BeautifulSoup(content, "lxml")
     multiverse_id = int(get_id_from_image_url(gatherer_url))
     faces_table = soup.select_one("table.cardComponentTable")
@@ -214,4 +218,6 @@ def get_card_by_id(multiverse_id: int) -> Card:
     if response.status_code >= HTTPStatus.MULTIPLE_CHOICES:
         msg = f"No card with multiverse_id {multiverse_id} exists"
         raise ValueError(msg)
-    return parse_gatherer_content(response.content, gatherer_url)
+    content = response.content.decode("utf-8")
+    new_content = re.sub(FALSE_TAG, "", content, count=1)
+    return parse_gatherer_content(new_content, gatherer_url)
