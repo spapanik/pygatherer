@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from pathurl import URL, Query
 
+from pygatherer.lib.exceptions import MissingTagError, MultipleAttributeError
 from pygatherer.utils.constants import CARD_DETAILS_URL, CARD_URL, SUPERTYPES
 
 if TYPE_CHECKING:
@@ -25,8 +26,8 @@ class LeftColumnInfo(TypedDict):
 
 
 class RightColumnInfo(TypedDict):
-    name: int
-    expansion: int
+    name: str
+    expansion: str
     supertypes: list[str]
     types: list[str]
     subtypes: list[str]
@@ -41,7 +42,7 @@ class RightColumnInfo(TypedDict):
 @dataclass(frozen=True)
 class Cost:
     type: str
-    value: object = None
+    value: int | None = None
     colors: list[str] | None = None
 
 
@@ -65,6 +66,9 @@ class Card:
 
 def parse_cost_image(cost_img: Tag) -> Cost:
     alt = cost_img["alt"]
+    if not isinstance(alt, str):
+        raise MultipleAttributeError(cost_img, "alt")
+
     try:
         cost = int(alt)
     except ValueError:
@@ -128,12 +132,22 @@ def get_id_from_image_url(image_url: URL) -> str:
 
 def parse_left_col(left_col: Tag) -> LeftColumnInfo:
     img = left_col.img
-    image_url = CARD_URL.join(img["src"])
+    if img is None:
+        raise MissingTagError(left_col, "img")
+
+    img_src = img["src"]
+    if not isinstance(img_src, str):
+        raise MultipleAttributeError(img, "src")
+
+    image_url = CARD_URL.join(img_src)
     multiverse_id = get_id_from_image_url(image_url)
     variation = None
+    variations_div = left_col.select_one("div.variations")
+    if variations_div is None:
+        raise MissingTagError(left_col, "div.variations")
     variations = [
         variation
-        for variation in left_col.select_one("div.variations").select("a")
+        for variation in variations_div.select("a")
         if variation["id"] == multiverse_id
     ]
 
@@ -149,8 +163,9 @@ def parse_left_col(left_col: Tag) -> LeftColumnInfo:
 
 def parse_right_col(right_col: Tag) -> RightColumnInfo:
     rows = {
-        row.select_one(".label").text.strip(): row.select_one(".value")
+        label.text.strip(): value
         for row in right_col.select("div.row")
+        if (label := row.select_one(".label")) and (value := row.select_one(".value"))
     }
     supertypes, types, subtypes = parse_types(rows["Types:"].text.strip())
     cost = color_indicator = loyalty = rules = power = toughness = None
@@ -192,12 +207,19 @@ def parse_gatherer_content(content: str, gatherer_url: URL) -> Card:
     soup = BeautifulSoup(content, "lxml")
     multiverse_id = int(get_id_from_image_url(gatherer_url))
     faces_table = soup.select_one("table.cardComponentTable")
+    if not faces_table:
+        raise MissingTagError(soup, "table.cardComponentTable")
     faces = faces_table.select("table.cardDetails")
     for face in faces:
         right_col = face.select_one("td.rightCol")
+        if right_col is None:
+            raise MissingTagError(face, "td.rightCol")
+
         left_col = face.select_one("td.leftCol")
         if left_col is None:
             left_col = face.select_one("td.plane")
+        if left_col is None:
+            raise MissingTagError(face, "td.leftCol/td.plane")
 
         card_info = {**parse_left_col(left_col), **parse_right_col(right_col)}
         if card_info["multiverse_id"] == multiverse_id:
