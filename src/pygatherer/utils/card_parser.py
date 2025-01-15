@@ -145,13 +145,11 @@ def parse_left_col(left_col: Tag) -> LeftColumnInfo:
     variations_div = left_col.select_one("div.variations")
     if variations_div is None:
         raise MissingTagError(left_col, "div.variations")
-    variations = [
+    if variations := [
         variation
         for variation in variations_div.select("a")
         if variation["id"] == multiverse_id
-    ]
-
-    if variations:
+    ]:
         variation = int(variations[0].text)
 
     return {
