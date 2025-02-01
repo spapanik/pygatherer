@@ -1,18 +1,4 @@
 # Usage
 
-`pygatherer` has a module named `utils` that contains all the relevant
-parsers.
-
-> Retrieve the card info by its multiverse id
->
-> param str \| int multiverse_id
->
-> : The multiverse id of the card
->
-> return
->
-> : the parsed gatherer content of the card
->
-> rtype
->
-> : dict
+`pygatherer` has a module named `cards`. In it there is a method
+called `get_card_by_id`, that can get a card by its multiverse id.

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [Unreleased]
 
+### Removed
+
+-   Variation id from card info
+
 ## [0.7.0] - 2024-12-09
 
 ### Added

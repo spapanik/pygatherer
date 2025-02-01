@@ -5,9 +5,9 @@ class ParseError(ValueError):
     """Base class for parsing errors."""
 
 
-class MultipleAttributeError(ParseError):
+class MissingAttributeError(ParseError):
     def __init__(self, tag: Tag, attr_name: str) -> None:
-        msg = f"Failed to parse tag: {tag}, expected a single `{attr_name}` attribute"
+        msg = f"Failed to parse tag: {tag}, expected a `{attr_name}` attribute"
         super().__init__(msg)
 
 
