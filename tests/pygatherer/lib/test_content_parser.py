@@ -221,7 +221,8 @@ def test_right_col_planeswalker() -> None:
         rules=[
             "+2: Each player draws a card.",
             "-1: Target player draws a card.",
-            "-10: Target player puts the top twenty cards of their library into their graveyard.",
+            "-10: Target player puts the top twenty cards "
+            "of their library into their graveyard.",
         ],
         loyalty="3",
     )
@@ -239,7 +240,8 @@ def test_right_col_planeswalker() -> None:
     assert card_info["rules"] == [
         "+2: Each player draws a card.",
         "-1: Target player draws a card.",
-        "-10: Target player puts the top twenty cards of their library into their graveyard.",
+        "-10: Target player puts the top twenty cards "
+        "of their library into their graveyard.",
     ]
     assert card_info["color_indicator"] is None
     assert card_info["loyalty"] == "3"
