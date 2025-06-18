@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ### Removed
 
 - Variation id from card info
+- Drop python 3.9 support
 
 ## [0.7.0] - 2024-12-09
 
@@ -97,7 +98,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 - Added a parser for a single multiverse id
 
-[Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
+[Keep a Changelog]: https://keepachangelog.com/en/1.1.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 [Unreleased]: https://github.com/spapanik/pygatherer/compare/v0.7.0...master
 [0.7.0]: https://github.com/spapanik/pygatherer/compare/v0.6.0...v0.7.0
