@@ -102,7 +102,7 @@ def test_get_id_from_wrong_url() -> None:
 
 def test_parse_gatherer_content_missing_table() -> None:
     tag = create_tag("div")
-    with pytest.raises(MissingTagError, match="`table.cardComponentTable`"):
+    with pytest.raises(MissingTagError, match=r"`table\.cardComponentTable`"):
         content_parser.parse_gatherer_content(tag, 382866)
 
 
@@ -125,7 +125,7 @@ def test_parse_gatherer_content_missing_card_details(
     nested = create_tag("table", class_="cardDetails")
     table.append(nested)
     tag.append(table)
-    with pytest.raises(MissingTagError, match="`td.rightCol`"):
+    with pytest.raises(MissingTagError, match=r"`td\.rightCol`"):
         content_parser.parse_gatherer_content(tag, 382866)
     assert mock_choose_face.call_count == 1
     calls = [mock.call([nested], 382866)]
@@ -174,7 +174,7 @@ def test_choose_face_wrong_multiverse_id() -> None:
     img_3 = create_tag("img", src=url.string)
     face_3.append(img_3)
     faces = [face_1, face_2, face_3]
-    with pytest.raises(RuntimeError, match="No face is having this multiverse id."):
+    with pytest.raises(RuntimeError, match=r"No face is having this multiverse id\."):
         content_parser.choose_face(faces, 382866)
 
 
