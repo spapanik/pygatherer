@@ -65,8 +65,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 - Removed the following classes, as they don\'t offer extra
   functionality:
-    - Card
-    - CardParser
+  - Card
+  - CardParser
 
 ## [0.2.0] - 2018-12-19
 
