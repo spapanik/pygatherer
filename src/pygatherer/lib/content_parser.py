@@ -158,4 +158,4 @@ def parse_gatherer_content(soup: Tag, multiverse_id: int) -> Card:
     image_url = CARD_IMAGE_URL.replace(
         query=Query.from_dict(type="card", multiverseid=str(multiverse_id))
     )
-    return Card(multiverse_id=multiverse_id, image_url=image_url, **right_col_info)  # type: ignore[arg-type]
+    return Card(multiverse_id=multiverse_id, image_url=image_url, **right_col_info)

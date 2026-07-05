@@ -17,15 +17,15 @@ class Cost:
 @dataclass(frozen=True)
 class Card:
     name: str
-    cost: list[Cost]
-    color_indicator: list[str]
+    cost: list[Cost] | None
+    color_indicator: list[str] | None
     subtypes: list[str]
     types: list[str]
     supertypes: list[str]
     expansion: str
     image_url: URL
-    power: str
-    loyalty: str
-    toughness: str
-    rules: list[str]
+    power: str | None
+    loyalty: str | None
+    toughness: str | None
+    rules: list[str] | None
     multiverse_id: int
