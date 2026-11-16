@@ -28,7 +28,7 @@
 [licence_url]: https://pygatherer.readthedocs.io/en/stableLICENSE/
 [codecov_badge]: https://codecov.io/github/spapanik/pygatherer/graph/badge.svg?token=Q20F84BW72
 [codecov_url]: https://codecov.io/github/spapanik/pygatherer
-[readthedocs_badge]: https://readthedocs.org/projects/pygatherer/badge/?version=latest
+[readthedocs_badge]: https://app.readthedocs.org/projects/pygatherer/badge/?version=latest
 [readthedocs_url]: https://pygatherer.readthedocs.io/en/latest/
 [pypi_badge]: https://img.shields.io/pypi/v/pygatherer
 [pypi_url]: https://pypi.org/project/pygatherer
